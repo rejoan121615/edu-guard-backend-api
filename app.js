@@ -17,9 +17,15 @@ app.get("/", async (req, res, next) => {
     next();
 });
 
+app.get('/all', async (req, res, next) => {
+    const allUser = await UserModel.findAll();
+    // next();
+    res.json(allUser);
+})
+
 
 Database.sync().then(() => {
-    app.listen(4545, () => {
-        console.log(`Server listening on port ${4545}`);
+    app.listen(5000, () => {
+        console.log(`Server listening on port http://localhost:${5000}`);
     });
 });
