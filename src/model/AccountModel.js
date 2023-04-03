@@ -8,6 +8,10 @@ const AccountModel = sequelize.define("account", {
         allowNull: false,
         autoIncrement: true,
     },
+    studentId: {
+        type: DataTypes.NUMBER,
+        allowNull: false,
+    },
     accountType: {
         type: DataTypes.STRING,
         allowNull: false,
