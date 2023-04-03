@@ -1,5 +1,5 @@
 const { DataTypes } = require("sequelize");
-const sequelize = require("../database/database");
+const sequelize = require("../../database/database");
 
 const AccountModel = sequelize.define("account", {
     id: {
@@ -8,7 +8,7 @@ const AccountModel = sequelize.define("account", {
         allowNull: false,
         autoIncrement: true,
     },
-    studentId: {
+    accountId: {
         type: DataTypes.NUMBER,
         allowNull: false,
     },
@@ -37,6 +37,5 @@ const AccountModel = sequelize.define("account", {
         allowNull: true,
     },
 });
-
 
 module.exports = AccountModel;
