@@ -1,28 +1,25 @@
 const express = require("express");
 const Database = require("./src/database/database");
-
-// data model
-const UserModel = require("./src/model/UserModel");
+const AdminRoute = require("./src/routes/AdminRoute");
+const bodyParser = require("body-parser");
 
 // package setup
 
 const app = express();
 
-app.get("/", async (req, res, next) => {
-    const userData = await UserModel.create({
-        name: "mohd Rejoan",
-        ["student-id"]: 96852254,
-    });
-    console.log(userData);
-    next();
-});
+// parse data
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
-app.get('/all', async (req, res, next) => {
-    const allUser = await UserModel.findAll();
-    // next();
-    res.json(allUser);
-})
 
+// admin routes
+app.use("/admin", AdminRoute);
+
+// trainer routes
+
+// class captain route
+
+// student routes
 
 Database.sync().then(() => {
     app.listen(5000, () => {
