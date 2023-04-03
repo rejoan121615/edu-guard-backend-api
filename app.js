@@ -20,7 +20,7 @@ app.use("/admin", AdminRoute);
 
 // student routes
 
-Database.sync({ force: true }).then(() => {
+Database.sync().then(() => {
     app.listen(5000, () => {
         console.log(`Server listening on port http://localhost:${5000}`);
     });

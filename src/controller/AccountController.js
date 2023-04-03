@@ -29,7 +29,7 @@ const newAccountSchema = yup.object().shape({
         ),
 });
 
-// create account controller 
+// create account controller
 exports.createAccount = async (req, res, next) => {
     try {
         const validateUserData = await newAccountSchema.validate(req.body);
@@ -45,8 +45,41 @@ exports.createAccount = async (req, res, next) => {
     }
 };
 
-// exports.authenticateAccount = async (req, res, next) => {
-//     const authAccountSchema = yup.object().shape({
-//         id: 
-//     })
-// }
+// authenticate my account
+exports.authenticateAccount = async (req, res, next) => {
+    // yup validation schema
+    const authAccountSchema = yup.object().shape({
+        studentId: yup.number().required(),
+        password: yup.string().required(),
+        accountType: yup.string().required(),
+    });
+
+    try {
+        // validate input
+        const userData = await authAccountSchema.validate(req.body);
+        // find user
+        const queryData = await AccountModel.findOne({
+            where: {
+                studentId: userData.studentId,
+            },
+        });
+        // match password
+        const passMatch = await bcrypt.compare(
+            userData.password,
+            queryData.password
+        );
+        if (passMatch) {
+            res.status(200).json({
+                message: "account authenticate successfully",
+                data: queryData,
+            });
+        } else {
+            res.status(401).json({
+                message: 'Wrong Password',
+                data: null
+            });
+        }
+    } catch (error) {
+        res.json({ message: error.message });
+    }
+};
