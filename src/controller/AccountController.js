@@ -1,4 +1,4 @@
-const AccountModel = require("../model/accounts/AccountModel");
+const AccountModel = require("../model/AccountModel");
 const yup = require("yup");
 const bcrypt = require("bcrypt");
 
@@ -41,13 +41,13 @@ exports.createAccount = async (req, res, next) => {
         });
 
         if (!queryData) {
-            const hasedPass = await bcrypt.hash(req.body.password, 15);
+            const hasedPass = await bcrypt.hash(req.body.password, 10);
             // create new user on the database
             validateUserData.password = hasedPass;
             const newUserData = await AccountModel.create(validateUserData);
-            res.json({ message: "created successfully", data: newUserData });
+            res.status(201).json({ message: "created successfully", data: newUserData });
         } else {
-            res.status(200).json({
+            res.status(409).json({
                 message: "A account is already there with the same id",
             });
         }

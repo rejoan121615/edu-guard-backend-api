@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // admin routes
-app.use("/admin", AdminRoute);
+app.use(AdminRoute);
 
 // trainer routes
 
@@ -20,7 +20,7 @@ app.use("/admin", AdminRoute);
 
 // student routes
 
-Database.sync({ force: true}).then(() => {
+Database.sync().then(() => {
     app.listen(5000, () => {
         console.log(`Server listening on port http://localhost:${5000}`);
     });
