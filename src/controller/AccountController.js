@@ -1,6 +1,7 @@
 const AccountModel = require("../model/AccountModel");
 const yup = require("yup");
 const bcrypt = require("bcrypt");
+const jwt = require('jsonwebtoken');
 
 // account data validator
 const newAccountSchema = yup.object().shape({
@@ -61,7 +62,6 @@ exports.createAccount = async (req, res, next) => {
 // authenticate my account
 exports.authenticateAccount = async (req, res, next) => {
 
-    console.log(req.body)
     // yup validation schema
     const authAccountSchema = yup.object().shape({
         accountId: yup.number().required(),
@@ -86,6 +86,11 @@ exports.authenticateAccount = async (req, res, next) => {
 
         
         if (passMatch) {
+            console.log('user date', req.body)
+            // generate token
+            const personToken = jwt.sign({ accountId: req.body.accountId }, "your_jwt_secret_key", {
+                expiresIn: "1h",
+            });
             // remove res pass filed 
             let userResData = {...queryData.dataValues};
             delete userResData.password;
@@ -93,6 +98,7 @@ exports.authenticateAccount = async (req, res, next) => {
             res.status(200).json({
                 message: "account authenticate successfully",
                 data: userResData,
+                token: personToken
             });
         } else {
             res.status(401).json({
@@ -101,6 +107,7 @@ exports.authenticateAccount = async (req, res, next) => {
             });
         }
     } catch (error) {
+        console.log(error);
         res.json({ message: "Account is not available or Trainee id incorrect" });
     }
 };
