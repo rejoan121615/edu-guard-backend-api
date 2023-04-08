@@ -60,6 +60,8 @@ exports.createAccount = async (req, res, next) => {
 
 // authenticate my account
 exports.authenticateAccount = async (req, res, next) => {
+
+    console.log(req.body)
     // yup validation schema
     const authAccountSchema = yup.object().shape({
         accountId: yup.number().required(),
@@ -81,18 +83,24 @@ exports.authenticateAccount = async (req, res, next) => {
             userData.password,
             queryData.password
         );
+
+        
         if (passMatch) {
+            // remove res pass filed 
+            let userResData = {...queryData.dataValues};
+            delete userResData.password;
+            // server response 
             res.status(200).json({
                 message: "account authenticate successfully",
-                data: queryData,
+                data: userResData,
             });
         } else {
             res.status(401).json({
-                message: "Wrong Password",
+                message: "Wrong Password, Please Enter a correct password",
                 data: null,
             });
         }
     } catch (error) {
-        res.json({ message: error.message });
+        res.json({ message: "Account is not available or Trainee id incorrect" });
     }
 };
