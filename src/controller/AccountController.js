@@ -108,6 +108,6 @@ exports.authenticateAccount = async (req, res, next) => {
         }
     } catch (error) {
         console.log(error);
-        res.json({ message: "Account is not available or Trainee id incorrect" });
+        res.status(404).json({ message: "Account is not available or Trainee id incorrect" });
     }
 };

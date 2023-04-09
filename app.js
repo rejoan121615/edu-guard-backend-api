@@ -6,6 +6,13 @@ const passport = require("passport");
 const JwtExtract = require("passport-jwt").ExtractJwt;
 const JwtStrategy = require("passport-jwt").Strategy;
 const AccountModel = require("./src/model/AccountModel");
+const Path = require('path');
+require("dotenv").config({ path: Path.resolve(__dirname, './.env')});
+
+
+console.log(process.env);
+
+
 
 // package setup
 const app = express();
@@ -63,6 +70,9 @@ app.post(
         res.json({ message: "your protechted router" });
     }
 );
+
+
+
 
 // admin routes
 app.use(AdminRoute);
