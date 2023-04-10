@@ -1,5 +1,2 @@
-account type =>
-admin = 999
-teacher = 1
-classCaptain = 2
-student = 3
+res.status(201)
+.json({ message: "created successfully", data: newUserData });

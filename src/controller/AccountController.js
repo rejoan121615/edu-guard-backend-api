@@ -49,7 +49,7 @@ exports.createAccount = async (req, res, next) => {
             const newUserData = await AccountModel.create(validateUserData);
             res.status(201).json({ message: "created successfully", data: newUserData });
         } else {
-            res.status(409).json({
+            res.status(401).json({
                 message: "A account is already there with the same id",
             });
         }

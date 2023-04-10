@@ -59,13 +59,6 @@ passport.use(
 
 
 
-app.post(
-    "/auth",
-    passport.authenticate("jwt", { session: false }),
-    (req, res, next) => {
-        res.json({ message: "your protechted router" });
-    }
-);
 
 
 
