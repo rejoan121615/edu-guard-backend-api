@@ -6,13 +6,7 @@ const passport = require("passport");
 const JwtExtract = require("passport-jwt").ExtractJwt;
 const JwtStrategy = require("passport-jwt").Strategy;
 const AccountModel = require("./src/model/AccountModel");
-const Path = require('path');
-require("dotenv").config({ path: Path.resolve(__dirname, './.env')});
-
-
-console.log(process.env);
-
-
+const { jwtKey } = require('./src/helper/envVar')
 
 // package setup
 const app = express();
@@ -43,7 +37,7 @@ app.use(bodyParser.json());
 // setup json web token authentication
 const options = {
     jwtFromRequest: JwtExtract.fromAuthHeaderAsBearerToken(),
-    secretOrKey: "your_jwt_secret_key",
+    secretOrKey: jwtKey,
 };
 
 passport.use(
@@ -62,6 +56,8 @@ passport.use(
             });
     })
 );
+
+
 
 app.post(
     "/auth",

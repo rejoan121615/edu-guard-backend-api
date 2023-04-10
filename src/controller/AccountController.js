@@ -2,6 +2,7 @@ const AccountModel = require("../model/AccountModel");
 const yup = require("yup");
 const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
+const { jwtKey } = require('../helper/envVar')
 
 // account data validator
 const newAccountSchema = yup.object().shape({
@@ -88,9 +89,13 @@ exports.authenticateAccount = async (req, res, next) => {
         if (passMatch) {
             console.log('user date', req.body)
             // generate token
-            const personToken = jwt.sign({ accountId: req.body.accountId }, "your_jwt_secret_key", {
-                expiresIn: "1h",
-            });
+            const personToken = jwt.sign(
+                { accountId: req.body.accountId },
+                jwtKey,
+                {
+                    expiresIn: "1h",
+                }
+            );
             // remove res pass filed 
             let userResData = {...queryData.dataValues};
             delete userResData.password;
