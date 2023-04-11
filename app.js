@@ -8,6 +8,8 @@ const JwtStrategy = require("passport-jwt").Strategy;
 const AccountModel = require("./src/model/AccountModel");
 const { jwtKey } = require('./src/helper/envVar')
 
+
+
 // package setup
 const app = express();
 
