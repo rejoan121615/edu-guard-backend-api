@@ -6,8 +6,7 @@ const passport = require("passport");
 const JwtExtract = require("passport-jwt").ExtractJwt;
 const JwtStrategy = require("passport-jwt").Strategy;
 const AccountModel = require("./src/model/AccountModel");
-const { jwtKey } = require('./src/helper/envVar')
-
+const { jwtKey } = require('./src/helper/envVar');
 
 
 // package setup
@@ -74,7 +73,7 @@ app.use(AdminRoute);
 
 // student routes
 
-Database.sync().then(() => {
+Database.sync({force: true}).then(() => {
     app.listen(5000, () => {
         console.log(`Server listening on port http://localhost:${5000}`);
     });

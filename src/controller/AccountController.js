@@ -87,7 +87,7 @@ exports.authenticateAccount = async (req, res, next) => {
 
         
         if (passMatch) {
-            console.log('user date', req.body)
+            // console.log('user date', req.body)
             // generate token
             const personToken = jwt.sign(
                 { accountId: req.body.accountId },
