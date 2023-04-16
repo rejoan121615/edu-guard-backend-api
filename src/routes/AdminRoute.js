@@ -15,13 +15,8 @@ const { HWFilePost } = require("../controller/HomeWorkController");
 router.post("/user/create", AccountController.createAccount);
 router.post("/user/log-in", AccountController.authenticateAccount);
 
-// notice router
-router.post("/notice/create", NoticeController.createNotice);
-router.put("/notice/update", NoticeController.updateNotice);
-router.delete("/notice/delete", NoticeController.deleteNotice);
 
-// connects page routers
-router.get("/connects/allUser", ConnectController.AllUser);
+
 
 // setting multer storage configration
 

@@ -2,7 +2,7 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../database/database');
 const AccountModel = require('./AccountModel');
 
-const HomeWorkModel = sequelize.define('HomeWork', {
+const FileModel = sequelize.define('HomeWork', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -28,7 +28,7 @@ const HomeWorkModel = sequelize.define('HomeWork', {
 })
 
 
-HomeWorkModel.belongsTo(AccountModel);
-AccountModel.hasMany(HomeWorkModel);
+FileModel.belongsTo(AccountModel);
+AccountModel.hasMany(FileModel);
 
-module.exports = HomeWorkModel;
+module.exports = FileModel;

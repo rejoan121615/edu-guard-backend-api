@@ -1,4 +1,4 @@
-const HomeWorkModel = require("../model/HomeWorkModel");
+const HomeWorkModel = require("../model/FileModel");
 const yup = require('yup');
 
 const HwSchema = yup.object().shape({

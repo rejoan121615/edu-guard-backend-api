@@ -1,13 +1,16 @@
 const express = require("express");
 const Database = require("./src/database/database");
-const AdminRoute = require("./src/routes/AdminRoute");
 const bodyParser = require("body-parser");
 const passport = require("passport");
 const JwtExtract = require("passport-jwt").ExtractJwt;
 const JwtStrategy = require("passport-jwt").Strategy;
 const AccountModel = require("./src/model/AccountModel");
 const { jwtKey } = require('./src/helper/envVar');
-
+// routes 
+const AdminRoute = require("./src/routes/AdminRoute");
+const CommonRoute = require('./src/routes/CommonRoutes');
+const NoticeRoute = require('./src/routes/NoticeRoutes');
+const CommunicationRoute = require('./src/routes/CommunicationRoute');
 
 // package setup
 const app = express();
@@ -60,12 +63,12 @@ passport.use(
 
 
 
-
-
-
-
 // admin routes
 app.use(AdminRoute);
+app.use(CommonRoute);
+app.use(NoticeRoute);
+app.use(CommunicationRoute);
+
 
 // trainer routes
 
@@ -73,7 +76,7 @@ app.use(AdminRoute);
 
 // student routes
 
-Database.sync({force: true}).then(() => {
+Database.sync().then(() => {
     app.listen(5000, () => {
         console.log(`Server listening on port http://localhost:${5000}`);
     });
