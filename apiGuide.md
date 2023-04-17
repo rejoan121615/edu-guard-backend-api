@@ -63,8 +63,7 @@ localhost:5000/notice/bishew
 
 
 ### connects or communication api's list --------------
-# -- get all student list
-localhost:5000/connect/list
+
 # -- new message apies (not created yet)
 
 
