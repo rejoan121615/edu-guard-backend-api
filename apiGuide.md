@@ -21,6 +21,12 @@ payload => {
     "accountType": "teacher"
 }
 
+# -- see all user account (done)
+localhost:5000/user/all
+# -- see all student account (done)
+localhost:5000/user/student
+
+
 
 ###  notice api's  -------------------- 
 # -- create new notice (done)
@@ -48,11 +54,11 @@ localhost:5000/notice/delete
 
 # -- get all notice list (done)
 localhost:5000/notice/all
-# -- get classroom notice list
+# -- get classroom notice list (done)
 localhost:5000/notice/classroom
-# -- get training center notice list
+# -- get training center notice list (done)
 localhost:5000/notice/training-center
-# -- get BISHEW notice list
+# -- get BISHEW notice list (pending for decision)
 localhost:5000/notice/bishew
 
 

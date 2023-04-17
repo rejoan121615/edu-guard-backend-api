@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 
-// router.post()
+router.get('/connects/list', )
 
 
 module.exports = router;

@@ -102,8 +102,29 @@ exports.all = async (req, res, next) => {
 
 exports.classRoom = async (req, res, next) => {
     try {
-        
+        const queryData = await NoticeModel.findAll({
+            where: {
+                noticeType: 'class'
+            },
+        });
+        res.status(200).json({ message: "Class notice lists", data: queryData });
     } catch (error) {
-        
+        res.status(404).json({ message: 'Got an error' });
     }
+}
+
+exports.trainingCenter = async (req, res, next) => {
+     try {
+         const queryData = await NoticeModel.findAll({
+             where: {
+                 noticeType: "institute",
+             },
+         });
+         res.status(200).json({
+             message: "Class notice lists",
+             data: queryData,
+         });
+     } catch (error) {
+         res.status(404).json({ message: "Got an error" });
+     }
 }

@@ -1,8 +1,8 @@
 const AccountModel = require("../model/AccountModel");
 const yup = require("yup");
 const bcrypt = require("bcrypt");
-const jwt = require('jsonwebtoken');
-const { jwtKey } = require('../helper/envVar')
+const jwt = require("jsonwebtoken");
+const { jwtKey } = require("../helper/envVar");
 
 // account data validator
 const newAccountSchema = yup.object().shape({
@@ -47,7 +47,10 @@ exports.createAccount = async (req, res, next) => {
             // create new user on the database
             validateUserData.password = hasedPass;
             const newUserData = await AccountModel.create(validateUserData);
-            res.status(201).json({ message: "created successfully", data: newUserData });
+            res.status(201).json({
+                message: "created successfully",
+                data: newUserData,
+            });
         } else {
             res.status(409).json({
                 message: "A account is already there with the same id",
@@ -62,7 +65,6 @@ exports.createAccount = async (req, res, next) => {
 
 // authenticate my account
 exports.authenticateAccount = async (req, res, next) => {
-
     // yup validation schema
     const authAccountSchema = yup.object().shape({
         accountId: yup.number().required(),
@@ -85,7 +87,6 @@ exports.authenticateAccount = async (req, res, next) => {
             queryData.password
         );
 
-        
         if (passMatch) {
             // console.log('user date', req.body)
             // generate token
@@ -96,14 +97,14 @@ exports.authenticateAccount = async (req, res, next) => {
                     expiresIn: "1h",
                 }
             );
-            // remove res pass filed 
-            let userResData = {...queryData.dataValues};
+            // remove res pass filed
+            let userResData = { ...queryData.dataValues };
             delete userResData.password;
-            // server response 
+            // server response
             res.status(200).json({
                 message: "account authenticate successfully",
                 data: userResData,
-                token: personToken
+                token: personToken,
             });
         } else {
             res.status(401).json({
@@ -113,6 +114,43 @@ exports.authenticateAccount = async (req, res, next) => {
         }
     } catch (error) {
         console.log(error);
-        res.status(404).json({ message: "Account is not available or Trainee id incorrect" });
+        res.status(404).json({
+            message: "Account is not available or Trainee id incorrect",
+        });
     }
 };
+
+// all user list
+exports.all = async (req, res, next) => {
+    try {
+        const queryData = await AccountModel.findAll({
+            attributes: {
+                exclude: ['password'],
+            },
+        });
+        res.status(200).json({
+            message: "Account list found successafully",
+            data: queryData,
+        });
+    } catch (error) {
+        console.log(error)
+        res.status(404).json({ message: "got an error" });
+    }
+};
+
+// all student account list 
+exports.student = async (req, res, next) => {
+    try {
+        const studentAccount = await AccountModel.findAll({
+            where: {
+                accountType: 'student'
+            },
+            attributes: {
+                exclude: ["password"]
+            }
+        });
+        res.status(200).json({ message: 'Student account list found successfully', data: studentAccount });
+    } catch (error) {
+        res.status(404).json({ message: "Got an error" });
+    }
+}

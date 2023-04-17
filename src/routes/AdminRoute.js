@@ -14,7 +14,8 @@ const { HWFilePost } = require("../controller/HomeWorkController");
 
 router.post("/user/create", AccountController.createAccount);
 router.post("/user/log-in", AccountController.authenticateAccount);
-
+router.get('/user/all', AccountController.all);
+router.get('/user/student', AccountController.student);
 
 
 

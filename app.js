@@ -10,7 +10,7 @@ const { jwtKey } = require('./src/helper/envVar');
 const AdminRoute = require("./src/routes/AdminRoute");
 const CommonRoute = require('./src/routes/CommonRoutes');
 const NoticeRoute = require('./src/routes/NoticeRoutes');
-const CommunicationRoute = require('./src/routes/CommunicationRoute');
+const ConnectsRoute = require("./src/routes/ConnectsRoute");
 
 // package setup
 const app = express();
@@ -67,7 +67,7 @@ passport.use(
 app.use(AdminRoute);
 app.use(CommonRoute);
 app.use(NoticeRoute);
-app.use(CommunicationRoute);
+app.use(ConnectsRoute);
 
 
 // trainer routes
