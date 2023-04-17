@@ -23,7 +23,7 @@ payload => {
 
 
 ###  notice api's  -------------------- 
-# -- create new notice
+# -- create new notice (done)
 localhost:5000/notice/create
 
 payload => {
@@ -33,12 +33,20 @@ payload => {
     "noticeType": string,
 }
 
-# -- update notice 
+# -- update notice (done)
 localhost:5000/notice/update
-# -- delete notice
+
+payload => {
+    "id": number,
+    "title": string,
+    "description": string,
+    "files": string,
+    "noticeType": string,
+}
+# -- delete notice (done)
 localhost:5000/notice/delete
 
-# -- get all notice list
+# -- get all notice list (done)
 localhost:5000/notice/all
 # -- get classroom notice list
 localhost:5000/notice/classroom

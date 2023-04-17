@@ -86,3 +86,24 @@ exports.deleteNotice = async (req, res, next) => {
         res.status(404).json({ message: "Notice delete fail", data: error.message });
     }
 };
+
+
+exports.all = async (req, res, next) => {
+
+    try {
+        const queryData = await NoticeModel.findAll();
+        res.status(200).json({message: 'Found the data successfully', data: queryData})
+    } catch (error) {
+        res.status(404).json({message: 'Something went wrong'})
+    }
+
+
+}
+
+exports.classRoom = async (req, res, next) => {
+    try {
+        
+    } catch (error) {
+        
+    }
+}

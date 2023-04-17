@@ -7,6 +7,8 @@ const NoticeController = require("../controller/NoticeController");
 router.post("/notice/create", NoticeController.createNotice);
 router.put("/notice/update", NoticeController.updateNotice);
 router.delete("/notice/delete", NoticeController.deleteNotice);
+router.get("/notice/all", NoticeController.all);
+router.get('/notice/classroom', NoticeController.classRoom)
 
 
 
