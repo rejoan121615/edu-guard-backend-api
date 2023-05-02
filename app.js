@@ -10,6 +10,7 @@ const { jwtKey } = require('./src/helper/envVar');
 const AdminRoute = require("./src/routes/AdminRoute");
 const CommonRoute = require('./src/routes/CommonRoutes');
 const NoticeRoute = require('./src/routes/NoticeRoutes');
+const FilesRoutes = require('./src/routes/FilesRoutes');
 
 // package setup
 const app = express();
@@ -68,6 +69,7 @@ passport.use(
 app.use(AdminRoute);
 app.use(CommonRoute);
 app.use(NoticeRoute);
+app.use(FilesRoutes);
 
 
 // trainer routes
@@ -78,7 +80,7 @@ app.use(NoticeRoute);
 
 
 // message route / connects route  
-require('./src/routes/ConnectsRoute')(io);
+require('./src/controller/MessageController')(io);
 
 
 Database.sync({ force: true}).then(() => {

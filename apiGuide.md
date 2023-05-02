@@ -92,7 +92,7 @@ localhost:5000/notice/bishew
 ### share center api's ------------------------
 
 # -- upload a file
-localhost:5000/share/send
+localhost:5000/share/upload
 
 # -- download a file
 localhost:5000/share/files:[file-number]
