@@ -64,8 +64,28 @@ localhost:5000/notice/bishew
 
 ### connects or communication api's list --------------
 
-# -- new message send  (done)
-localhost:5000/message/send
+### new message event created
+
+# -- send message event (done)
+{
+    "value": "How you doing?"
+}
+
+# -- update message event (done)
+{
+    "id": 1,
+    "value": "Latest Updated message"
+}
+# -- delete message event (done)
+{
+    "id": 1,
+    "value": "Latest Updated message"
+}
+
+
+# --- auto mated observeable event (done)
+    recived / notification / all 
+
 
 
 

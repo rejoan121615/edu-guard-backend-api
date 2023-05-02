@@ -14,6 +14,17 @@ module.exports = function (io) {
             { id: 1, text: notificationTxt },
         ]);
     }
+
+    // all message 
+    async function UpdateClientMessage() {
+        try {
+            // get all message 
+            const allMessage = await MessageModel.findAll();
+            io.emit('all', allMessage)
+        } catch (error) {
+            
+        }
+    }
     // message apies
     io.on("connection", (socket) => {
         // all messages 
@@ -36,6 +47,7 @@ module.exports = function (io) {
                 });
                 // send notification
                 NotificationHandler('Message send');
+                UpdateClientMessage();
             } catch (error) {
                 console.log(error);
             }
@@ -51,13 +63,13 @@ module.exports = function (io) {
                 });
                 // notification 
                 NotificationHandler('Message deleted');
+                UpdateClientMessage();
             } catch (error) {
                 console.log(error);
             }
         });
         // update message 
         socket.on('update', async ({ id, value }) => {
-            console.log(value)
             try {
                 // find and update 
                 const dbData = await MessageModel.update({
@@ -70,6 +82,7 @@ module.exports = function (io) {
                 console.log('updated data', dbData);
                 // notification 
                 NotificationHandler('Data updated');
+                UpdateClientMessage();
             } catch (error) {
                 
             }
