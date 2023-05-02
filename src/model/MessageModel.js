@@ -9,7 +9,7 @@ const MessageModel = sequelize.define("message", {
         autoIncrement: true,
         allowNull: false,
     },
-    accountId: {
+    senderId: {
         type: DataTypes.NUMBER,
         allowNull: false,
     },
