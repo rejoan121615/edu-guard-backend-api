@@ -65,7 +65,7 @@ localhost:5000/notice/bishew
 ### connects or communication api's list --------------
 
 # -- new message apies (not created yet)
-
+localhost:5000/message/send
 
 
 

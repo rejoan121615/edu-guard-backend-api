@@ -1,8 +1,12 @@
-const express = require('express');
-const router = express.Router();
+const MessageModel = require('../model/MessageModel');
 
 
-router.get('/connects/list', )
-
-
-module.exports = router;
+module.exports = async function (io) {
+    io.on("connection", (socket) => {
+        console.log("socket io connected");
+        socket.on("send", (message) => {
+            console.log("your message => ", message);
+            io.emit("recived", `your recived message is => ${message}`);
+        });
+    });
+};

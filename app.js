@@ -10,10 +10,11 @@ const { jwtKey } = require('./src/helper/envVar');
 const AdminRoute = require("./src/routes/AdminRoute");
 const CommonRoute = require('./src/routes/CommonRoutes');
 const NoticeRoute = require('./src/routes/NoticeRoutes');
-const ConnectsRoute = require("./src/routes/ConnectsRoute");
 
 // package setup
 const app = express();
+const http = require('http').createServer(app);
+const io = require('socket.io')(http);
 
 // set header
 app.use((req, res, next) => {
@@ -67,7 +68,6 @@ passport.use(
 app.use(AdminRoute);
 app.use(CommonRoute);
 app.use(NoticeRoute);
-app.use(ConnectsRoute);
 
 
 // trainer routes
@@ -76,8 +76,13 @@ app.use(ConnectsRoute);
 
 // student routes
 
-Database.sync().then(() => {
-    app.listen(5000, () => {
+
+// message route / connects route  
+require('./src/routes/ConnectsRoute')(io);
+
+
+Database.sync({ force: true}).then(() => {
+    http.listen(5000, () => {
         console.log(`Server listening on port http://localhost:${5000}`);
     });
 });
