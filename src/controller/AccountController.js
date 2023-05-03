@@ -79,6 +79,7 @@ exports.authenticateAccount = async (req, res, next) => {
         const queryData = await AccountModel.findOne({
             where: {
                 accountId: userData.accountId,
+                accountType: userData.accountType
             },
         });
         // match password
