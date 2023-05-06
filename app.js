@@ -36,6 +36,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 
+
+
+
 // admin routes
 app.use(AdminRoute);
 app.use(CommonRoute);
