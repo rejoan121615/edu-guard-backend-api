@@ -81,18 +81,19 @@ exports.authenticateAccount = async (req, res, next) => {
                 accountId: userData.accountId,
                 accountType: userData.accountType
             },
+            
         });
         // match password
         const passMatch = await bcrypt.compare(
             userData.password,
             queryData.password
         );
-
         if (passMatch) {
-            // console.log('user date', req.body)
+            // destructuring query data 
+            const { password, ...filterQueryData } = queryData.dataValues;
             // generate token
             const personToken = jwt.sign(
-                { accountId: req.body.accountId },
+                { ...filterQueryData},
                 jwtKey,
                 {
                     expiresIn: "1h",
