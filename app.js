@@ -2,6 +2,7 @@ const express = require("express");
 const Database = require("./src/database/database");
 const bodyParser = require("body-parser");
 // routes
+const { authVerification } = require('./src/helper/authVerifyer');
 const AdminRoute = require("./src/routes/AdminRoute");
 const CommonRoute = require("./src/routes/CommonRoutes");
 const NoticeRoute = require("./src/routes/NoticeRoutes");
@@ -40,10 +41,12 @@ app.use(bodyParser.json());
 
 
 // admin routes
+app.use()
 app.use(AdminRoute);
 app.use(CommonRoute);
 app.use(NoticeRoute);
 app.use(FilesRoutes);
+
 
 // trainer routes
 
