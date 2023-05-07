@@ -14,7 +14,6 @@ payload => {
     "accountType": "teacher"
 }
 
-
 # -- log in user
 localhost:5000/admin/log-in
 
@@ -37,7 +36,7 @@ payload => {
 
 
 # -- log in user
-localhost:5000/user/log-in
+localhost:5000/student/log-in
 
 payload => {
     "accountId": 1274256,
@@ -46,9 +45,9 @@ payload => {
 }
 
 # -- see all user account (done)
-localhost:5000/user/all
+localhost:5000/student/all
 # -- see all student account (done)
-localhost:5000/user/student
+localhost:5000/student/student
 
 
 

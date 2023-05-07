@@ -13,11 +13,12 @@ const {authVerification} = require("../helper/authVerification");
 
 // user routers
 
-// router.post("/user/create", AccountController.createAccount);
-// router.post("/user/log-in", AccountController.authenticateAccount);
 router.use(authVerification);
-router.get('/user/all', AccountController.all);
-router.get('/user/student', AccountController.student);
+
+router.post("/student/create", AccountController.createAccount);
+router.post("/student/log-in", AccountController.authenticateAccount);
+router.get("/student/all", AccountController.all);
+router.get("/student/student", AccountController.student);
 
 
 
