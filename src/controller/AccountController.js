@@ -48,15 +48,15 @@ exports.createAccount = async (req, res, next) => {
             validateUserData.password = hasedPass;
             const userData = await AccountModel.create(validateUserData);
             const { password, ...newUserData } = userData.dataValues;
-            // generate jwt token 
+            // generate jwt token
             const jwtToken = jwt.sign(newUserData, jwtKey, {
-                expiresIn: '1h'
+                expiresIn: "1h",
             });
 
             res.status(201).json({
                 message: "created successfully",
                 data: newUserData,
-                token: jwtToken
+                token: jwtToken,
             });
         } else {
             res.status(409).json({
@@ -86,9 +86,8 @@ exports.authenticateAccount = async (req, res, next) => {
         const queryData = await AccountModel.findOne({
             where: {
                 accountId: userData.accountId,
-                accountType: userData.accountType
+                accountType: userData.accountType,
             },
-            
         });
         // match password
         const passMatch = await bcrypt.compare(
@@ -96,16 +95,12 @@ exports.authenticateAccount = async (req, res, next) => {
             queryData.password
         );
         if (passMatch) {
-            // destructuring query data 
+            // destructuring query data
             const { password, ...filterQueryData } = queryData.dataValues;
             // generate token
-            const personToken = jwt.sign(
-                { ...filterQueryData},
-                jwtKey,
-                {
-                    expiresIn: "1h",
-                }
-            );
+            const personToken = jwt.sign({ ...filterQueryData }, jwtKey, {
+                expiresIn: "1h",
+            });
             // remove res pass filed
             let userResData = { ...queryData.dataValues };
             delete userResData.password;
@@ -134,7 +129,7 @@ exports.all = async (req, res, next) => {
     try {
         const queryData = await AccountModel.findAll({
             attributes: {
-                exclude: ['password'],
+                exclude: ["password"],
             },
         });
         res.status(200).json({
@@ -142,24 +137,53 @@ exports.all = async (req, res, next) => {
             data: queryData,
         });
     } catch (error) {
-        console.log(error)
+        console.log(error);
         res.status(404).json({ message: "got an error" });
     }
 };
 
-// all student account list 
+// all student account list
 exports.student = async (req, res, next) => {
     try {
         const studentAccount = await AccountModel.findAll({
             where: {
-                accountType: 'student'
+                accountType: "student",
             },
             attributes: {
-                exclude: ["password"]
-            }
+                exclude: ["password"],
+            },
         });
-        res.status(200).json({ message: 'Student account list found successfully', data: studentAccount });
+        res.status(200).json({
+            message: "Student account list found successfully",
+            data: studentAccount,
+        });
     } catch (error) {
         res.status(404).json({ message: "Got an error" });
     }
-}
+};
+
+// scan for admin account
+exports.scan = async (req, res, next) => {
+    try {
+        const queryAccount = await AccountModel.findOne({
+            where: {
+                accountType: "teacher",
+            },
+            attributes: {
+                exclude: ["password"],
+            },
+        });
+
+        if (queryAccount.dataValues) {
+            res.status(200).json({
+                message: "A admin account available",
+                value: true,
+            });
+        } else {
+            res.status(400).json({
+                message: "No admin account found, please create one first",
+                value: false,
+            });
+        }
+    } catch (error) {}
+};

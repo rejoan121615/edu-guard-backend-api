@@ -1,4 +1,7 @@
 ###  user api's  -------------------
+
+# -- check user
+localhost:5000/admin/scan
 # -- create user 
 localhost:5000/admin/create
 

@@ -11,7 +11,7 @@ const path = require("path");
 const { HWFilePost } = require("../controller/HomeWorkController");
 
 // user routers
-
+router.post("/admin/scan", )
 router.post("/admin/create", AccountController.createAccount);
 router.post("/admin/log-in", AccountController.authenticateAccount);
 
