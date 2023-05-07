@@ -2,11 +2,12 @@ const express = require("express");
 const Database = require("./src/database/database");
 const bodyParser = require("body-parser");
 // routes
-const { authVerification } = require('./src/helper/authVerifyer');
+const { authVerification } = require('./src/helper/authVerification');
 const AdminRoute = require("./src/routes/AdminRoute");
 const CommonRoute = require("./src/routes/CommonRoutes");
 const NoticeRoute = require("./src/routes/NoticeRoutes");
 const FilesRoutes = require("./src/routes/FilesRoutes");
+const AccountRoute = require('./src/routes/AccountRoute');
 
 // package setup
 const app = express();
@@ -41,7 +42,7 @@ app.use(bodyParser.json());
 
 
 // admin routes
-app.use()
+app.use(AccountRoute);
 app.use(AdminRoute);
 app.use(CommonRoute);
 app.use(NoticeRoute);
@@ -57,7 +58,7 @@ app.use(FilesRoutes);
 // message route / connects route
 require("./src/controller/MessageController")(io);
 
-Database.sync().then(() => {
+Database.sync({ force: true}).then(() => {
     http.listen(5000, () => {
         console.log(`Server listening on port http://localhost:${5000}`);
     });

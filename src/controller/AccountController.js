@@ -46,10 +46,17 @@ exports.createAccount = async (req, res, next) => {
             const hasedPass = await bcrypt.hash(req.body.password, 10);
             // create new user on the database
             validateUserData.password = hasedPass;
-            const newUserData = await AccountModel.create(validateUserData);
+            const userData = await AccountModel.create(validateUserData);
+            const { password, ...newUserData } = userData.dataValues;
+            // generate jwt token 
+            const jwtToken = jwt.sign(newUserData, jwtKey, {
+                expiresIn: '1h'
+            });
+
             res.status(201).json({
                 message: "created successfully",
                 data: newUserData,
+                token: jwtToken
             });
         } else {
             res.status(409).json({

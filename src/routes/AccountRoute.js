@@ -12,10 +12,8 @@ const { HWFilePost } = require("../controller/HomeWorkController");
 
 // user routers
 
-router.post("/user/create", AccountController.createAccount);
-router.post("/user/log-in", AccountController.authenticateAccount);
-router.get("/user/all", AccountController.all);
-router.get("/user/student", AccountController.student);
+router.post("/admin/create", AccountController.createAccount);
+router.post("/admin/log-in", AccountController.authenticateAccount);
 
 // setting multer storage configration
 

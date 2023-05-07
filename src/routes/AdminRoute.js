@@ -9,11 +9,13 @@ const uuid = require("uuid");
 const fs = require("fs");
 const path = require("path");
 const { HWFilePost } = require("../controller/HomeWorkController");
+const {authVerification} = require("../helper/authVerification");
 
 // user routers
 
-router.post("/user/create", AccountController.createAccount);
-router.post("/user/log-in", AccountController.authenticateAccount);
+// router.post("/user/create", AccountController.createAccount);
+// router.post("/user/log-in", AccountController.authenticateAccount);
+router.use(authVerification);
 router.get('/user/all', AccountController.all);
 router.get('/user/student', AccountController.student);
 

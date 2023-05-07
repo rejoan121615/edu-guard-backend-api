@@ -1,6 +1,27 @@
 ###  user api's  -------------------
 # -- create user 
-localhost:5000/user/create
+localhost:5000/admin/create
+
+payload => {
+    "accountId": 1274256,
+    "name": "Mohd Rejoan",
+    "password": "123",
+    "email": "mohd.rejoan@gmail.com",
+    "phoneNumber": "01643941863",
+    "accountType": "teacher"
+}
+
+
+# -- log in user
+localhost:5000/admin/log-in
+
+payload => {
+    "accountId": 1274256,
+    "password": "123",
+    "accountType": "teacher"
+}
+# -- create user 
+localhost:5000/student/create
 
 payload => {
     "accountId": 1274256,
