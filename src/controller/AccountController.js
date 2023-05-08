@@ -49,14 +49,14 @@ exports.createAccount = async (req, res, next) => {
             const userData = await AccountModel.create(validateUserData);
             const { password, ...newUserData } = userData.dataValues;
             // generate jwt token
-            const jwtToken = jwt.sign(newUserData, jwtKey, {
-                expiresIn: "1h",
-            });
+            // const jwtToken = jwt.sign(newUserData, jwtKey, {
+            //     expiresIn: "1h",
+            // });
 
             res.status(201).json({
                 message: "created successfully",
                 data: newUserData,
-                token: jwtToken,
+                // token: jwtToken,
             });
         } else {
             res.status(409).json({
