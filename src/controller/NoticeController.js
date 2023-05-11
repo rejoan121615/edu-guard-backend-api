@@ -4,11 +4,12 @@ const yup = require("yup");
 const NoticeSchema = yup.object().shape({
     title: yup.string().required(),
     description: yup.string().required(),
-    files: yup.string().required(),
+    file: yup.string().required(),
     noticeType: yup.string().required(),
 });
 
 exports.createNotice = async (req, res, next) => {
+    console.log('got the request')
     try {
         // validate user input data
         const validatedData = await NoticeSchema.validate(req.body);

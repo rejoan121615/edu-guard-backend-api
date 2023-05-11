@@ -53,7 +53,7 @@ app.use(FilesRoutes);
 // message route / connects route
 require("./src/controller/MessageController")(io);
 
-Database.sync({ force: true }).then(() => {
+Database.sync({}).then(() => {
     http.listen(5000, () => {
         console.log(`Server listening on port http://localhost:${5000}`);
     });

@@ -17,7 +17,7 @@ const NoticeModel = sequelize.define("notice", {
         type: DataTypes.STRING,
         allowNull: true,
     },
-    files: {
+    file: {
         type: DataTypes.STRING,
         allowNull: true,
     },
