@@ -3,11 +3,11 @@ const Database = require("./src/database/database");
 const bodyParser = require("body-parser");
 // routes
 const { authVerification } = require("./src/helper/authVerification");
-const AdminRoute = require("./src/routes/AdminRoute");
+const AdminRoute = require("./src/routes/StudentRoute");
 const CommonRoute = require("./src/routes/CommonRoutes");
 const NoticeRoute = require("./src/routes/NoticeRoutes");
 const FilesRoutes = require("./src/routes/FilesRoutes");
-const AccountRoute = require("./src/routes/AccountRoute");
+const AccountRoute = require("./src/routes/AdminRoute");
 
 // package setup
 const app = express();
@@ -43,6 +43,9 @@ app.use(AdminRoute);
 app.use(CommonRoute);
 app.use(NoticeRoute);
 app.use(FilesRoutes);
+app.use((req, res, next) => {
+    res.status(404).json({ message: 'Not found' });
+})
 
 // trainer routes
 

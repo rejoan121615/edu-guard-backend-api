@@ -9,11 +9,18 @@ const uuid = require("uuid");
 const fs = require("fs");
 const path = require("path");
 const { HWFilePost } = require("../controller/HomeWorkController");
+const {authVerification} = require("../helper/authVerification");
 
 // user routers
-router.post("/admin/scan", )
-router.post("/admin/create", AccountController.createAccount);
-router.post("/admin/log-in", AccountController.authenticateAccount);
+
+router.use(authVerification);
+
+router.post("/student/create", AccountController.createAccount);
+router.post("/student/log-in", AccountController.authenticateAccount);
+router.get("/student/all", AccountController.all);
+router.get("/student/student", AccountController.student);
+
+
 
 // setting multer storage configration
 
@@ -28,7 +35,7 @@ const diskConfig = multer.diskStorage({
             }
             cb(null, dirAddress);
         } else {
-            throw Error("user id not defined");
+            throw Error('user id not defined')
         }
     },
     filename: function (req, file, cb) {
@@ -45,6 +52,10 @@ const upload = multer({
 });
 
 // home work api
-router.post("/hw/upload/:userId", upload.single("homework"), HWFilePost);
+router.post(
+    "/hw/upload/:userId",
+    upload.single("homework"),
+    HWFilePost
+);
 
 module.exports = router;
