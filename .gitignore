@@ -3,3 +3,4 @@ package-lock.json
 src/database/application.sqlite
 uploads/
 src/uploads
+config.bat
