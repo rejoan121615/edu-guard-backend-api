@@ -3,38 +3,39 @@ const yup = require("yup");
 
 const NoticeSchema = yup.object().shape({
     title: yup.string().required(),
-    // description: yup.string(),
+    description: yup.string(),
     noticeType: yup.string().required(),
     file: yup.string()
 });
 
 exports.createNotice = async (req, res, next) => {
-    // console.log(req.file)
-    next();
-    // try {
-    //     // validate user input data
-    //     const validatedData = await NoticeSchema.validate(req.body);
+    try {
+        // validate user input data
+        const validatedData = await NoticeSchema.validate({
+            ...req.body,
+            file: req.file?.filename,
+        });
 
-    //     const [data, created] = await NoticeModel.findOrCreate({
-    //         where: { title: validatedData.title },
-    //         defaults: { ...validatedData, accountId: 1 },
-    //     });
+        const [data, created] = await NoticeModel.findOrCreate({
+            where: { title: validatedData.title },
+            defaults: { ...validatedData, accountId: 1 },
+        });
 
-    //     if (created) {
-    //         res.status(201).json({
-    //             message: "notice created successfully",
-    //             data: data,
-    //         });
-    //     } else {
-    //         res.status(409).json({
-    //             message: "A notice is already available",
-    //             data: data,
-    //         });
-    //     }
-    // } catch (error) {
-    //     console.log(error.message);
-    //     res.json({ message: "notice creation fail", data: error.message });
-    // }
+        if (created) {
+            res.status(201).json({
+                message: "notice created successfully",
+                data: data,
+            });
+        } else {
+            res.status(409).json({
+                message: "A notice is already available",
+                data: data,
+            });
+        }
+    } catch (error) {
+        console.log(error.message);
+        res.json({ message: "notice creation fail", data: error.message });
+    }
 };
 
 exports.updateNotice = async (req, res, next) => {
